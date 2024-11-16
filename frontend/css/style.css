@@ -1,0 +1,27 @@
+label, input{
+    display: block;
+}
+div {
+    margin: 10px;
+    padding: 10px;
+}
+#message {
+    text-align: center;
+}
+
+body{
+    background-image: url(imag.jpg);
+    margin: 20px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: block;
+    color:blue;
+    flex-grow: initial;
+
+}
+button{
+    color:red;
+    font-weight: bold;
+    padding: 10px;
+    margin: 10px;
+}
