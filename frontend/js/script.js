@@ -18,24 +18,38 @@ function showMessage(type, text){
 //registration form submit
 document.getElementById('registerForm').addEventListener('submit', async (e) => {
     e.preventDefault();
+
     const name = document.getElementById('regName').value;
     const email = document.getElementById('regEmail').value;
     const password = document.getElementById('regPassword').value;
-    //transmit the data
-    app.post('/loan_wizard/api/users/register', async (req, res) => {
-        try {
-            const { name, email, password} = req.body;
-    
-            // Example of a database operation
-            const [result] = await pool.query('INSERT INTO users (name, email, password) VALUES (?, ?, ?)', [name, email, password]);
-    
-            res.status(201).json({ message: 'User registered successfully' });
-        } catch (error) {
-            console.error('Error during registration:', error);
-            res.status(500).json({ message: 'Internal Server Error' });
+
+    // Prepare data to send
+    const data = { name, email, password };
+
+    try {
+        // Send POST request to server
+        const response = await fetch('/loan_wizard/api/users/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            alert('User registered successfully');
+        } else {
+            alert('Error: ' + result.message);
         }
-    })
-    });
+    } catch (error) {
+        console.error('Error during registration:', error);
+        alert('Something went wrong, please try again later.');
+    }
+});
+
+  
 //login form submit
 document.getElementById('loginForm').addEventListener('submit', async (e) => {
     e.preventDefault();
